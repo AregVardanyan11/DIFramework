@@ -1,9 +1,7 @@
 package scanner;
 
-package.di.scanning;
-
-import your.package.di.annotations.Component;
-import your.package.di.annotations.Configuration;
+import annotations.Component;
+import annotations.Configuration;
 import org.reflections.Reflections;
 import java.util.HashSet;
 import java.util.Set;
