@@ -1,4 +1,4 @@
-package enums;
+package core.enums;
 
 /**
  * Defines the scope for a component or bean managed by a dependency injection

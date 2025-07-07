@@ -1,7 +1,10 @@
-package container;
+package core.container;
 
-import scanner.ClassPathScanner;
+import core.annotations.Bean;
+import core.annotations.Configuration;
+import core.scanner.ClassPathScanner;
 
+import java.lang.reflect.Method;
 import java.util.Set;
 
 /**
@@ -31,16 +34,37 @@ import java.util.Set;
 public class DIContainer {
 
     private final BeanFactory factory;
+    private final BeanRegistry registry;
 
-    public DIContainer(String basePackage) {
+    public DIContainer(String basePackage) throws  Exception {
         ClassPathScanner scanner = new ClassPathScanner();
         Set<Class<?>> discovered = scanner.scan(basePackage);
 
-        BeanRegistry registry = new BeanRegistry();
+        registry = new BeanRegistry();
         for (Class<?> clazz : discovered) {
             BeanDefinition def = BeanDefinitionFactory.fromClass(clazz);
             registry.register(clazz, def);
+
+            if (clazz.isAnnotationPresent(Configuration.class)) {
+                Object configInstance = clazz.getDeclaredConstructor().newInstance();
+
+                for (Method method : clazz.getDeclaredMethods()) {
+                    if (method.isAnnotationPresent(Bean.class)) {
+                        BeanDefinition beanDef = BeanDefinitionFactory.fromBeanMethod(clazz, method);
+                        registry.register(method.getReturnType(), beanDef);
+
+                        if (!beanDef.getQualifier().isEmpty()) {
+                            registry.registerAlias(beanDef.getQualifier(), method.getReturnType());
+                        }
+
+                        beanDef.setFactoryInstance(configInstance);
+                    }
+                }
+            }
+
+
         }
+
 
         this.factory = new BeanFactory(registry);
     }

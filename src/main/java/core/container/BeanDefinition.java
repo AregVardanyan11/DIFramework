@@ -1,6 +1,6 @@
-package container;
+package core.container;
 
-import enums.ScopeType;
+import core.enums.ScopeType;
 
 import java.lang.reflect.Method;
 import java.util.Optional;
@@ -29,7 +29,9 @@ public class BeanDefinition {
     private final boolean lazy;
     private final boolean isPrimary;
     private final String qualifier;
-    private final Optional<Method> factoryMethod; // used for @Bean methods
+    private final Optional<Method> factoryMethod;
+    private Object factoryInstance;
+
 
     public BeanDefinition(Class<?> beanClass,
                           ScopeType scope,
@@ -51,4 +53,14 @@ public class BeanDefinition {
     public boolean isPrimary() { return isPrimary; }
     public String getQualifier() { return qualifier; }
     public Optional<Method> getFactoryMethod() { return factoryMethod; }
+
+
+    public void setFactoryInstance(Object instance) {
+        this.factoryInstance = instance;
+    }
+
+    public Optional<Object> getFactoryInstance() {
+        return Optional.ofNullable(factoryInstance);
+    }
+
 }

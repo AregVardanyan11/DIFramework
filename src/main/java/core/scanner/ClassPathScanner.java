@@ -1,7 +1,7 @@
-package scanner;
+package core.scanner;
 
-import annotations.Component;
-import annotations.Configuration;
+import core.annotations.Component;
+import core.annotations.Configuration;
 import org.reflections.Reflections;
 import java.util.HashSet;
 import java.util.Set;
@@ -27,4 +27,6 @@ public class ClassPathScanner {
 
         return result;
     }
+
+
 }

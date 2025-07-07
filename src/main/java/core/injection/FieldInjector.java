@@ -1,6 +1,7 @@
-package container;
+package core.injection;
 
-import annotations.Inject;
+import core.annotations.Inject;
+import core.container.BeanFactory;
 
 import java.lang.reflect.Field;
 

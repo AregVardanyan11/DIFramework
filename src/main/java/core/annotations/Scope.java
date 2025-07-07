@@ -1,6 +1,6 @@
-package annotations;
+package core.annotations;
 
-import enums.ScopeType;
+import core.enums.ScopeType;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

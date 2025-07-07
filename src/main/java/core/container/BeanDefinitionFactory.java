@@ -1,7 +1,7 @@
-package container;
+package core.container;
 
-import annotations.*;
-import enums.ScopeType;
+import core.annotations.*;
+import core.enums.ScopeType;
 
 import java.lang.reflect.Method;
 import java.util.Optional;
@@ -36,7 +36,7 @@ public class BeanDefinitionFactory {
             throw new IllegalArgumentException("Class " + clazz.getName() + " must be annotated with @Component or @Configuration");
         }
 
-        ScopeType scope = ScopeType.SINGLETON; // default
+        ScopeType scope = ScopeType.SINGLETON;
         if (clazz.isAnnotationPresent(Scope.class)) {
             scope = clazz.getAnnotation(Scope.class).value();
         }
