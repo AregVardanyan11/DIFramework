@@ -3,9 +3,7 @@ package core.container;
 import core.annotations.Bean;
 import core.annotations.Configuration;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * The BeanRegistry class serves as a registry for managing bean definitions in a dependency injection framework.
@@ -70,4 +68,9 @@ public class BeanRegistry {
     public boolean containsQualifier(String name) {
         return definitionsByName.containsKey(name);
     }
+
+    public List<BeanDefinition> getAllDefinitions() {
+        return new ArrayList<>(definitionsByType.values());
+    }
+
 }
